@@ -90,12 +90,46 @@ body {
 	z-index: 1;
 }
 
+#solo-launch {
+	position: fixed;
+	left: 50%;
+	bottom: 1.25rem;
+	transform: translateX(-50%);
+	z-index: 30;
+	padding: .8rem 1.4rem;
+	border: 2px solid #00e5ff;
+	border-radius: .75rem;
+	background: #102b52;
+	color: #fff;
+	font: 700 1.1rem Arial, sans-serif;
+	box-shadow: 0 0 1.5rem #001b44;
+	cursor: pointer;
+}
+
+#solo-launch:hover { background: #1b4678; }
+
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 
 	</head>
 	<body>
+		<button id="solo-launch" type="button">Launch Mission Solo</button>
+		<script>
+			const soloLaunch = document.getElementById('solo-launch');
+			soloLaunch.addEventListener('click', () => {
+				const canvas = document.getElementById('canvas');
+				canvas.focus();
+				window.focus();
+				for (const key of ['Enter', ' ', 'e']) {
+					const code = key === ' ' ? 'Space' : key === 'e' ? 'KeyE' : 'Enter';
+					canvas.dispatchEvent(new KeyboardEvent('keydown', { key, code, bubbles: true, keyCode: key === 'Enter' ? 13 : 32 }));
+					canvas.dispatchEvent(new KeyboardEvent('keyup', { key, code, bubbles: true, keyCode: key === 'Enter' ? 13 : 32 }));
+				}
+				soloLaunch.textContent = 'Mission loading…';
+				setTimeout(() => soloLaunch.remove(), 1200);
+			});
+		</script>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
 		</canvas>
