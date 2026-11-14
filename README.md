@@ -2,7 +2,7 @@
 
 Latest playable web build, including the multiplayer WebSocket server configuration.
 
-GitHub Pages deployment is enabled for this repository.
+GitHub Pages deployment is enabled for this repository. The Pages build is configured for judge-safe single-player play because GitHub Pages cannot host WebSockets; the multiplayer server remains available through the Vercel/local server files.
 
 Playable site: https://helixmission.vercel.app/
 
