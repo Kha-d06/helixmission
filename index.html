@@ -96,29 +96,6 @@ body {
 
 	</head>
 	<body>
-		<script>
-			// Party features are enabled; the WebSocket endpoint is supplied by the
-			// public deployment rather than GitHub Pages itself.
-			(() => {
-				const NativeWebSocket = window.WebSocket;
-				const partyServer = 'https://helixmission-beryl.vercel.app';
-				window.WebSocket = function (url, protocols) {
-					try {
-						const parsed = new URL(url, window.location.href);
-						if (parsed.pathname === '/ws') {
-							const target = new URL('/ws', partyServer);
-							target.protocol = 'wss:';
-							url = target.href;
-						}
-					} catch (_) {}
-					return protocols === undefined ? new NativeWebSocket(url) : new NativeWebSocket(url, protocols);
-				};
-				window.WebSocket.prototype = NativeWebSocket.prototype;
-				for (const key of ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED']) {
-					Object.defineProperty(window.WebSocket, key, { value: NativeWebSocket[key] });
-				}
-			})();
-		</script>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
 		</canvas>
