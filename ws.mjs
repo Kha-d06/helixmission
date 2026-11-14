@@ -7,6 +7,7 @@ const runtime = startServer({
   host: '0.0.0.0',
   webDir: process.cwd(),
   isAllowedAddress: () => true,
+  allowedOrigins: ['kha-d06.github.io'],
   heartbeatMs: 20000,
   log: () => {},
 });

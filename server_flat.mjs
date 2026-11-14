@@ -70,6 +70,7 @@ export function startServer({
   webDir = findWebDir(),
   heartbeatMs = 10000,
   isAllowedAddress = isPrivateAddress,
+  allowedOrigins = [],
   rng = (n) => crypto.randomInt(n),
   log = () => {},
   listen = true,
@@ -107,7 +108,8 @@ export function startServer({
       try {
         originHost = new URL(origin).host;
       } catch { /* invalid origin */ }
-      if (!originHost || originHost !== req.headers.host) return reject('403 Forbidden');
+      const allowedOriginHosts = new Set([req.headers.host, ...allowedOrigins]);
+      if (!originHost || !allowedOriginHosts.has(originHost)) return reject('403 Forbidden');
     }
     if (wss.clients.size >= MAX_CONNECTIONS) return reject('503 Service Unavailable');
     wss.handleUpgrade(req, socket, head, (ws) => wss.emit('connection', ws, req));
