@@ -117,6 +117,26 @@ body {
 	<body>
 		<button id="solo-launch" type="button" aria-label="Create offline game and launch mission">Create Offline Game · Launch Mission</button>
 		<script>
+			(() => {
+				const NativeWebSocket = window.WebSocket;
+				const partyServer = 'https://nearest-merry-fruit-understanding.trycloudflare.com';
+				window.WebSocket = function (url, protocols) {
+					try {
+						const parsed = new URL(url, window.location.href);
+						if (parsed.pathname === '/ws') {
+							const target = new URL('/ws', partyServer);
+							target.protocol = 'wss:';
+							url = target.href;
+						}
+					} catch (_) {}
+					return protocols === undefined ? new NativeWebSocket(url) : new NativeWebSocket(url, protocols);
+				};
+				window.WebSocket.prototype = NativeWebSocket.prototype;
+				for (const key of ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED']) {
+					Object.defineProperty(window.WebSocket, key, { value: NativeWebSocket[key] });
+				}
+			})();
+
 			const soloLaunch = document.getElementById('solo-launch');
 			soloLaunch.addEventListener('click', () => {
 				const canvas = document.getElementById('canvas');

@@ -6,6 +6,7 @@ const runtime = await startServer({
   host: '127.0.0.1',
   webDir: process.cwd(),
   isAllowedAddress: () => true,
+  allowedOrigins: ['kha-d06.github.io'],
   log: console.log,
 });
 
