@@ -2,6 +2,8 @@
 
 Latest playable web build, including the multiplayer WebSocket server configuration.
 
+GitHub Pages deployment is enabled for this repository.
+
 Playable site: https://helixmission.vercel.app/
 
 ## Run locally
