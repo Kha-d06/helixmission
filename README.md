@@ -4,7 +4,7 @@ Latest playable web build, including the multiplayer WebSocket server configurat
 
 ## 🚀 [PLAY THE GAME](https://kha-d06.github.io/helixmission/)
 
-Use the link above to launch the latest browser build, or [TEST THE GAME](https://kha-d06.github.io/helixmission/) directly. The GitHub Pages build displays a multiplayer-unavailable notice and continues in single-player mode.
+Use the link above to launch the latest browser build, or [TEST THE GAME](https://kha-d06.github.io/helixmission/) directly. Party features are enabled in the game client.
 
 GitHub Pages deployment is enabled for this repository. The game client includes party networking; a public WebSocket host is required for players on different computers because GitHub Pages only serves static files.
 
