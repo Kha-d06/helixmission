@@ -115,19 +115,22 @@ body {
 
 	</head>
 	<body>
-		<button id="solo-launch" type="button">Launch Mission Solo</button>
+		<button id="solo-launch" type="button" aria-label="Create offline game and launch mission">Create Offline Game · Launch Mission</button>
 		<script>
 			const soloLaunch = document.getElementById('solo-launch');
 			soloLaunch.addEventListener('click', () => {
 				const canvas = document.getElementById('canvas');
 				canvas.focus();
 				window.focus();
-				for (const key of ['Enter', ' ', 'e']) {
+				for (const key of ['Enter', ' ', 'e', 'l']) {
 					const code = key === ' ' ? 'Space' : key === 'e' ? 'KeyE' : 'Enter';
-					canvas.dispatchEvent(new KeyboardEvent('keydown', { key, code, bubbles: true, keyCode: key === 'Enter' ? 13 : 32 }));
-					canvas.dispatchEvent(new KeyboardEvent('keyup', { key, code, bubbles: true, keyCode: key === 'Enter' ? 13 : 32 }));
+					const keyCode = key === 'Enter' ? 13 : key === ' ' ? 32 : key.toUpperCase().charCodeAt(0);
+					for (const target of [window, document, canvas]) {
+						target.dispatchEvent(new KeyboardEvent('keydown', { key, code, bubbles: true, keyCode }));
+						target.dispatchEvent(new KeyboardEvent('keyup', { key, code, bubbles: true, keyCode }));
+					}
 				}
-				soloLaunch.textContent = 'Mission loading…';
+				soloLaunch.textContent = 'Offline game starting…';
 				setTimeout(() => soloLaunch.remove(), 1200);
 			});
 		</script>
