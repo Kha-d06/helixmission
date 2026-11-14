@@ -1,5 +1,12 @@
 {
   "cleanUrls": true,
+  "builds": [
+    { "src": "ws.mjs", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/ws", "dest": "/ws.mjs" },
+    { "handle": "filesystem" }
+  ],
   "headers": [
     {
       "source": "/(.*\\.wasm)",

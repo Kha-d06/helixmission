@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "features": {
+    "player_setup_screen": true,
+    "nickname_editing": true,
+    "suit_color_selection": true,
+    "local_profile_saving": true,
+    "astro_helper": true,
+    "sound_effects": true,
+    "touch_controls": true,
+    "lan_networking": true,
+    "room_creation": true,
+    "room_code_joining": true,
+    "room_code_display": true,
+    "connected_player_count": true,
+    "connected_player_avatars": true,
+    "earth_sky": true,
+    "grass_ground": true,
+    "mission_planning": true,
+    "earth_quest": true,
+    "launch_sequence": true,
+    "flight_tasks": true,
+    "steering_questions": true,
+    "drone_recovery": true,
+    "mission_report": true
+  }
+}
