@@ -89,34 +89,52 @@ body {
 	text-align: center;
 	z-index: 1;
 }
+
+#singleplayer-warning {
+	position: fixed;
+	top: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	width: min(44rem, calc(100% - 2rem));
+	box-sizing: border-box;
+	padding: 1rem 1.25rem;
+	border: 2px solid #00e5ff;
+	border-radius: 1rem;
+	background: #07152e;
+	color: #eef7ff;
+	font: 600 1rem/1.45 Arial, sans-serif;
+	text-align: center;
+	z-index: 20;
+	box-shadow: 0 0 2rem #001b44;
+}
+
+#singleplayer-warning strong { color: #00e5ff; }
+
+#singleplayer-warning button {
+	display: block;
+	margin: .75rem auto 0;
+	padding: .65rem 1.2rem;
+	border: 1px solid #00e5ff;
+	border-radius: .6rem;
+	background: #173560;
+	color: white;
+	font: inherit;
+	cursor: pointer;
+}
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
 <link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
 
 	</head>
 	<body>
+		<div id="singleplayer-warning" role="status">
+			<strong>Multiplayer notice:</strong> Online parties are temporarily unavailable on this GitHub Pages build because its host server is offline. You can still play the complete mission in single-player mode.
+			<button type="button" id="continue-singleplayer">Continue single-player</button>
+		</div>
 		<script>
-			// GitHub Pages is static, so send party WebSocket traffic to the public
-			// Vercel room server while keeping the game itself hosted by GitHub.
-			(() => {
-				const NativeWebSocket = window.WebSocket;
-				const partyServer = 'https://helixmission-beryl.vercel.app';
-				window.WebSocket = function (url, protocols) {
-					try {
-						const parsed = new URL(url, window.location.href);
-						if (parsed.pathname === '/ws') {
-							const target = new URL('/ws', partyServer);
-							target.protocol = 'wss:';
-							url = target.href;
-						}
-					} catch (_) {}
-					return protocols === undefined ? new NativeWebSocket(url) : new NativeWebSocket(url, protocols);
-				};
-				window.WebSocket.prototype = NativeWebSocket.prototype;
-				for (const key of ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED']) {
-					Object.defineProperty(window.WebSocket, key, { value: NativeWebSocket[key] });
-				}
-			})();
+			document.getElementById('continue-singleplayer').addEventListener('click', () => {
+				document.getElementById('singleplayer-warning').remove();
+			});
 		</script>
 		<canvas id="canvas">
 			Your browser does not support the canvas tag.
